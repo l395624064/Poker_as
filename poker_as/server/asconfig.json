@@ -1,0 +1,14 @@
+{
+    "config": "js",
+    "compilerOptions": {
+        "debug": true,
+        "source-path": [
+            "src",
+            "libs/laya/src"
+        ]
+    },
+    "files": [
+        "src/single.as"
+    ],
+    "out":"../.laya/js/temp.js"
+}

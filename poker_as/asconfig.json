@@ -1,0 +1,16 @@
+{
+    "config": "js",
+    "compilerOptions": {
+        "debug": true,
+        "source-path": [
+            "client/src",
+            "client/libs/laya/src",
+            "server/src",
+            "server/libs/laya/src"
+        ]
+    },
+    "files": [
+        "client/src/Main.as",
+        "server/src/single.as"
+    ]
+}
