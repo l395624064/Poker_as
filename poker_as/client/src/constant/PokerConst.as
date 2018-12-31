@@ -4,7 +4,9 @@ public class PokerConst {
     public static var COLOR_HEART:String="COLOR_HEART";//红
     public static var COLOR_CLUDS:String="COLOR_CLUDS";//梅
     public static var COLOR_DIANMOND:String="COLOR_DIANMOND";//方
+    public static var COLOR_NONE:String="COLOR_NONE";//无花色
 
+    public static var CARD_NONE:Number=0;//无点数
     public static var CARD_three:Number=3;
     public static var CARD_four:Number=4;
     public static var CARD_five:Number=5;
