@@ -1,7 +1,12 @@
 ﻿package {
-	import laya.display.Scene;
+import client.src.constant.GameEvent;
+import client.src.manager.GameEventDisPatch;
+import client.src.manager.GameInit;
+
+import laya.display.Scene;
 	import laya.net.AtlasInfoManager;
-	import laya.net.ResourceVersion;
+import laya.net.Loader;
+import laya.net.ResourceVersion;
 	import laya.net.URL;
 	import laya.utils.Handler;
 	import laya.utils.Stat;
@@ -44,7 +49,10 @@
 		
 		private function onConfigLoaded():void {
 			//加载场景
-			GameConfig.startScene && Scene.open(GameConfig.startScene);
+			//GameConfig.startScene && Scene.open(GameConfig.startScene);
+
+			GameInit.instance.init();
+			GameEventDisPatch.instance.event(GameEvent.GAME_LOAD);
 		}
 	}
 }
