@@ -1,4 +1,5 @@
 package client.src.model {
+import client.src.constant.PokerConst;
 
 public class DeskM {
     private static var _instance:DeskM;
@@ -7,31 +8,41 @@ public class DeskM {
         return _instance||=new DeskM();
     }
 
-    private var _pokersNum:Number;
-    public function get pokersNum():Number{
-        return _pokersNum;
+
+    private var _deskPokerNum:Number;//当前桌牌数
+    public function get deskPokerNum():Number{
+        return _deskPokerNum;
     }
-    public function set pokersNum(value:Number):void{
-        _pokersNum=value;
+    public function set deskPokerNum(value:Number):void{
+        _deskPokerNum=value;
     }
 
-    private var _pokersType:String;
-    public function get pokersType():String{
-        return _pokersType;
+    private var _deskPokerType:String;//当前桌牌类型
+    public function get deskPokerType():String{
+        return _deskPokerType;
     }
-    public function set pokersType(value:String):void{
-        _pokersType=value;
-    }
-
-    private var _pokersList:Array=[];
-    public function get pokersList():Array{
-        return _pokersList;
-    }
-    public function set pokersList(value:Array):void{
-        _pokersList=value;
+    public function set deskPokerType(value:String):void{
+        _deskPokerType=value;
     }
 
-    private var _gameTurn:Number;
+    private var _deskPokerList:Array=[];//当前桌牌
+    public function get deskPokerList():Array{
+        return _deskPokerList;
+    }
+    public function set deskPokerList(value:Array):void{
+        _deskPokerList=value;
+    }
+
+    private var _deskHeadValue:Number;//当前桌牌权值
+    public function get deskHeadValue():Number{
+        return _deskHeadValue;
+    }
+    public function set deskHeadValue(value:Number):void{
+        _deskHeadValue=value;
+    }
+
+
+    private var _gameTurn:Number;//游戏轮数
     public function get gameTurn():Number{
         return _gameTurn;
     }
@@ -39,7 +50,15 @@ public class DeskM {
         _gameTurn=value;
     }
 
-    private var _playerTurn:Number;//第几位出牌
+    private var _maxSeatId:Number;//最大出牌者座位号
+    public function get maxSeatId():Number{
+        return _maxSeatId;
+    }
+    public function set maxSeatId(value:Number):void{
+        _maxSeatId=value;
+    }
+
+    private var _playerTurn:Number;//轮位
     public function get playerTurn():Number{
         return _playerTurn;
     }

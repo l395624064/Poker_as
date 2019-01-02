@@ -6,6 +6,7 @@ public class GlobalConfig {
     public static var XMLFileURL:String="";
     public static var GameVersion:String="";
 
+    public static var SingleGame:Boolean=true;//单机
 
 }
 }

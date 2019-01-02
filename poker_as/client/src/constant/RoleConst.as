@@ -4,7 +4,7 @@ public class RoleConst {
     public static var Robot:String="Robot";
     public static var Desk:String="Desk";
 
-    public static var Landlord:String="Landlord";
-    public static var Farmer:String="Farmer";
+    public static var Landlord:String="地主";
+    public static var Farmer:String="农民";
 }
 }

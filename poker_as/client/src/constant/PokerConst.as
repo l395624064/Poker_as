@@ -35,5 +35,6 @@ public class PokerConst {
     public static var TYPE_Straight:String="TYPE_Straight";//顺子
     public static var TYPE_Boom:String="TYPE_Boom";//炸弹
     public static var TYPE_JokerBoom:String="TYPE_JokerBoom";//王炸
+    public static var TYPE_NONE:String="TYPE_NONE";//不存在得牌型
 }
 }

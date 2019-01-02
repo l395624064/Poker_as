@@ -1,6 +1,9 @@
 package client.src.control {
 import client.src.constant.GameEvent;
+import client.src.constant.PokerConst;
+import client.src.elem.card.Card;
 import client.src.manager.GameEventDisPatch;
+import client.src.manager.RulersManager;
 import client.src.view.loadview.Loadview;
 import client.src.view.lobbyview.Lobbyview;
 import client.src.view.roomview.Roomview;
@@ -46,7 +49,35 @@ public class GameMainC {
     {
         Laya.stage.addChild(Roomview.instance);
         Roomview.instance.openPanel();
+
+        pokerTest();
     }
+
+    private function pokerTest():void
+    {
+        var carda:Card=new Card();
+        carda.cardValue=PokerConst.CARD_three;
+        var cardb:Card=new Card();
+        cardb.cardValue=PokerConst.CARD_three;
+
+        var cardc:Card=new Card();
+        cardc.cardValue=PokerConst.CARD_four;
+        var cardd:Card=new Card();
+        cardd.cardValue=PokerConst.CARD_four;
+
+        var carde:Card=new Card();
+        carde.cardValue=PokerConst.CARD_three;
+        var cardf:Card=new Card();
+        cardf.cardValue=PokerConst.CARD_four;
+
+        var cardh:Card=new Card();
+        cardh.cardValue=PokerConst.CARD_five;
+
+        var cardlist:Array=[carda,cardb,carde,cardc,cardd,cardf,cardh];
+        var bo:Boolean=RulersManager.instance.calcThreeGroupCards(cardlist,2,true,true);
+        console.log("-bo:",bo);
+    }
+
 
 }
 }
