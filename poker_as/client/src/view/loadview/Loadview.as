@@ -22,6 +22,7 @@ public class Loadview extends LoadviewUI{
         {url:"res/atlas/poker.atlas",              type:Loader.ATLAS},
         {url:"res/atlas/comp.atlas",               type:Loader.ATLAS},
         {url:"res/atlas/view/player.atlas",        type:Loader.ATLAS},
+        {url:"res/atlas/view/common.atlas",        type:Loader.ATLAS},
 
         {url:"sence/BG0.png",        type:Loader.IMAGE},
         {url:"sence/BG2.png",        type:Loader.IMAGE},

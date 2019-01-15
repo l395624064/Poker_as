@@ -34,6 +34,11 @@ var serverCompilePath = projectPath + '/server/bin';
 var serverZipFileName = 'server.zip';
 var serverPackagePath = serverCompilePath + '/' + serverZipFileName;
 
+let browserify = require(ideModuleDir + "browserify");
+let source_stream = require(ideModuleDir + "vinyl-source-stream");
+let tsify = require(ideModuleDir + "tsify");
+var Stream = require('stream');
+
 function getConfig(path){
     try{
         return JSON.parse(fs.readFileSync(path));
@@ -112,31 +117,78 @@ function compilets(config, cb){
             for (var k in config.room_define){
                 scripts.push(k);
             }
+            function merge(script){
+                //console.log(arguments);
+                var stream = new Stream.Transform({objectMode: true});
+                //console.log(stream);
+                stream._transform = function (originalFile, unused, callback) {       
+                    if (!this.sourceCode) {
+                        var headCode = 'var layacloud=this;\nvar laya={cloud:{ServerScriptBase:null}};\n'
+                        this.sourceCode = headCode;
+                        this.push(headCode);
+                    }
+                    originalFile = originalFile.toString().replace('return '+script, 'layacloud.'+script+'='+script+';\n\treturn '+script+';');
+                    this.sourceCode += originalFile;
+                    this.push(originalFile);
+                    callback();
+                }
+                stream._flush=function(callback){
+                    var reg = /var\s(\w+)\s=\s\/\*\*\s@class\s\*\/\s\(function \(_super\)\s({[\s\S]*?})\(laya.cloud.ServerScriptBase\)\);/g
+                    var match;
+                    var classes = [];
+                    var attachedCode = 'var layacloud=this;\n';
+                    while (match = reg.exec(this.sourceCode)){
+                        var classname = match[1];
+                        var classcontent = match[2];
 
+                        classes.push(classname);
+
+                        var funMatch;
+                        var regFun = /(\w+)\.prototype\.(\w+)\s=\sfunction\s/g;
+                        while (funMatch = regFun.exec(classcontent)){
+                            var funname = funMatch[2];
+                            attachedCode += 'function '+funname+'(){\n';
+                            attachedCode += '\t'+classname+'instance.'+funname+'.apply(this, arguments)';
+                            attachedCode += '}\n'
+                            //console.log(funname);
+                        }
+                        attachedCode += 'var '+classname+'instance = new '+classname+'()';
+                    }
+                    this.push(attachedCode);
+                    callback();
+                }
+                return stream;
+            }
+            var finishedCompileScript = [];
             for (var index in scripts){
                 var script = scripts[index];
-                var source = fs.readFileSync(serverCompilePath + '/' + script + '.js');
-                source += '';
-                var reg = /var\s(\w+)\s=\s\/\*\*\s@class\s\*\/\s\(function \(_super\)\s({[\s\S]*?})\(laya.cloud.ServerScriptBase\)\);/g
-                var match;
-                var classes = [];
-                while (match = reg.exec(source)){
-                    var classname = match[1];
-                    var classcontent = match[2];
-
-                    classes.push(classname);
-
-                    classcontent = classcontent.substring(classcontent.indexOf('_super.apply(this, arguments) || this;')+47, classcontent.lastIndexOf('return'));
-                    classcontent = classcontent.replace(/(\w+)\.prototype\.(\w+)\s=\sfunction\s/g, function(matched, cname, funname, index, input){
-                        //console.log(arguments);
-                        return 'function '+funname;
-                    });
-                    fs.writeFileSync(serverCompilePath + '/' +classname+'.js', classcontent);
-                }
+                browserify({
+                    entries: [serverCompilePath + '/' + script + '.js']
+                }).bundle()
+                .pipe(merge(script))
+                //使用source把输出文件命名为bundle.js
+                .pipe(source_stream(script + '.js'))
+                //把bundle.js复制到bin/js目录
+                
+                .pipe(gulp.dest(serverCompilePath))
+                .pipe(function(){
+                    var stream = new Stream.Transform({objectMode: true});
+                    stream._transform = function (originalFile, unused, callback) {
+                        callback();
+                    };
+                    stream._flush=function(callback){
+                        callback();
+                        finishedCompileScript.push(script);
+                        if (finishedCompileScript.length == scripts.length){
+                            console.log('编译完成');
+                            cb();
+                        } 
+                    }
+                                       
+                    return stream;
+                }())
+                ;                
             }
-            
-            console.log('编译完成');
-            cb();
         }
     });
 }
@@ -284,7 +336,7 @@ gulp.task('uploadTask', function(cb){
 });
 
 gulp.task('deploy_to_layacloud', function(cb){
-    console.log('说明');
+    //console.log('说明');
     gulpSequence('compile', 'package', 'deploy_to_layacloud_task', cb);
 });
 
@@ -302,7 +354,7 @@ gulp.task('deploy_to_layacloud_task', function(cb){
         var version = config.version;
         var formData = {};
         formData['game_version'] = version;
-        formData['appid'] = 'cloud_8046';//projectInfo.appid;
+        formData['appid'] = projectInfo.appid;
         formData['developer_uid'] = developer_uid;
         formData['access_token'] = accessToken;
 
@@ -527,7 +579,7 @@ gulp.task('debug', ['compile'], function(){
     });
 
     proc.on('close', function(code){
-        console.log('debug process exit with code: ' + code);        
+        console.log('debug process exit with code: ' + code);
         if (fs.existsSync(pidFile)){
             fs.unlinkSync(pidFile);
         }        

@@ -1,5 +1,6 @@
 package client.src.elem.card {
 import client.src.constant.PokerConst;
+import client.src.manager.PokerToolManager;
 
 import laya.display.Sprite;
 import laya.events.Event;
@@ -11,20 +12,21 @@ public class Card extends Sprite{
     public var cardValue:Number;
     public var cardSelect:Boolean=false;
 
-    private var cardIndex:Number;
+    private var cardIndex:Number;//牌组位置
     private var cardPosX:Number;
     private var cardPosY:Number;
 
     public function Card() {
     }
 
-    public function init(color:String,value:Number):void
+    public function init():void
     {
-        cardColor=color;
-        cardValue=value;
+        if(!cardColor && !cardValue){
+            throw new Error("card value undefined");
+        }
         cardImg||=new Image();
-
-        initSkin();
+        cardImg.skin=PokerToolManager.instance.getCardSkin(cardValue,cardColor);
+        this.addChild(cardImg);
         initEvent();
     }
 
@@ -38,37 +40,8 @@ public class Card extends Sprite{
         if(cardSelect){
             this.y-=20;
         }else{
-            this.y-=20;
+            this.y+=20;
         }
-    }
-
-
-    private function initSkin():void
-    {
-        if(cardValue=PokerConst.CARD_BJoker){
-            cardImg.skin="poker/53.png";
-        }else if(cardValue=PokerConst.CARD_SJoker){
-            cardImg.skin="poker/54.png";
-        }else if(cardColor==PokerConst.COLOR_NONE && cardValue==PokerConst.CARD_NONE){
-            cardImg.skin="poker/CardBack.png";
-        }
-        return;
-
-        //红 黑 梅 方
-        var colorIndex:Number;
-        if(cardColor==PokerConst.COLOR_HEART){
-            colorIndex=1;
-        }else if(cardColor==PokerConst.COLOR_SPADE){
-            colorIndex=2;
-        }else if(cardColor==PokerConst.COLOR_CLUDS){
-            colorIndex=3;
-        }
-        else if(cardColor==PokerConst.COLOR_DIANMOND){
-            colorIndex=4;
-        }
-
-        var skinIndex:Number=(cardValue>PokerConst.CARD_A)? 4*(cardValue-3)+colorIndex:48+colorIndex;
-        cardImg.skin="poker/"+skinIndex+".png";
     }
 
     public function updateIndex(index:Number):void
