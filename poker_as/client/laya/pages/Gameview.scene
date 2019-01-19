@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"Scene",
-    "selectedBox":26,
-    "selecteID":57,
+    "selectedBox":2,
+    "selecteID":60,
     "searchKey":"Scene",
     "props":{"width":1282,"sceneColor":"#000000","height":709},
     "nodeParent":-1,
-    "maxID":58,
+    "maxID":61,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -27,119 +27,6 @@
             "compId":3,
             "child":[
                 ]
-        },
-        {
-            "x":15,
-            "type":"Box",
-            "searchKey":"Box,btnBox",
-            "props":{"y":401,"x":506,"var":"btnBox"},
-            "nodeParent":2,
-            "label":"btnBox",
-            "isOpen":true,
-            "isDirectory":true,
-            "isAniNode":true,
-            "hasChild":true,
-            "compId":25,
-            "child":[
-                {
-                    "x":30,
-                    "type":"Button",
-                    "searchKey":"Button,cancellord_btn",
-                    "props":{"y":36,"x":1,"width":124,"var":"cancellord_btn","skin":"comp/button.png","labelSize":30,"labelFont":"SimHei","label":"不抢","height":51},
-                    "nodeParent":25,
-                    "label":"cancellord_btn",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":16,
-                    "child":[
-                        ]
-                },
-                {
-                    "x":30,
-                    "type":"Button",
-                    "searchKey":"Button,wantlord_btn",
-                    "props":{"y":36,"x":174,"width":124,"var":"wantlord_btn","skin":"comp/button.png","labelSize":30,"labelFont":"SimHei","label":"抢地主","height":51},
-                    "nodeParent":25,
-                    "label":"wantlord_btn",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":20,
-                    "child":[
-                        ]
-                },
-                {
-                    "x":30,
-                    "type":"Button",
-                    "searchKey":"Button,wantdouble_btn",
-                    "props":{"y":37,"x":1,"width":124,"var":"wantdouble_btn","skin":"comp/button.png","labelSize":30,"labelFont":"SimHei","label":"加倍","height":51},
-                    "nodeParent":25,
-                    "label":"wantdouble_btn",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":21,
-                    "child":[
-                        ]
-                },
-                {
-                    "x":30,
-                    "type":"Button",
-                    "searchKey":"Button,canceldouble_btn",
-                    "props":{"y":37,"x":174,"width":124,"var":"canceldouble_btn","skin":"comp/button.png","labelSize":30,"labelFont":"SimHei","label":"不加倍","height":51},
-                    "nodeParent":25,
-                    "label":"canceldouble_btn",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":22,
-                    "child":[
-                        ]
-                },
-                {
-                    "x":30,
-                    "type":"Button",
-                    "searchKey":"Button,showCard_btn",
-                    "props":{"y":36,"width":124,"var":"showCard_btn","skin":"comp/button.png","labelSize":30,"labelFont":"SimHei","label":"出牌","height":51},
-                    "nodeParent":25,
-                    "label":"showCard_btn",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":23,
-                    "child":[
-                        ]
-                },
-                {
-                    "x":30,
-                    "type":"Button",
-                    "searchKey":"Button,pass_btn",
-                    "props":{"y":36,"x":174,"width":124,"var":"pass_btn","skin":"comp/button.png","labelSize":30,"labelFont":"SimHei","label":"PASS","height":51},
-                    "nodeParent":25,
-                    "label":"pass_btn",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":24,
-                    "child":[
-                        ]
-                },
-                {
-                    "x":30,
-                    "type":"Button",
-                    "searchKey":"Button,ready_btn",
-                    "props":{"y":36.5,"x":87,"width":124,"var":"ready_btn","skin":"comp/button.png","labelSize":30,"labelFont":"SimHei","label":"准备","height":51},
-                    "nodeParent":25,
-                    "label":"ready_btn",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":53,
-                    "child":[
-                        ]
-                }],
-            "$HIDDEN":false
         },
         {
             "x":15,

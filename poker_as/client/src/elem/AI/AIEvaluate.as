@@ -15,8 +15,8 @@ public class AIEvaluate {
     private  var VALUE_A:Number=4;
 
     private  var VALUE_TWO:Number=5;
-    private  var VALUE_SJoker:Number=6;
-    private  var VALUE_BJoker:Number=7;
+    private  var VALUE_SJoker:Number=7;
+    private  var VALUE_BJoker:Number=8;
 
     public function AIEvaluate() {
     }

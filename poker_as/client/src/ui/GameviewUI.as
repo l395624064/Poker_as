@@ -4,17 +4,9 @@ package ui {
 	import laya.display.*;
 
 	public class GameviewUI extends Scene {
-		public var btnBox:Box;
-		public var cancellord_btn:Button;
-		public var wantlord_btn:Button;
-		public var wantdouble_btn:Button;
-		public var canceldouble_btn:Button;
-		public var showCard_btn:Button;
-		public var pass_btn:Button;
-		public var ready_btn:Button;
 		public var lordcard_box:Box;
 
-		public static var uiView:Object =/*[STATIC SAFE]*/{"type":"Scene","props":{"width":1282,"height":709},"compId":2,"child":[{"type":"Sprite","props":{"y":0,"x":0,"width":1282,"texture":"sence/BG2.png","height":709},"compId":3},{"type":"Box","props":{"y":401,"x":506,"var":"btnBox"},"compId":25,"child":[{"type":"Button","props":{"y":36,"x":1,"width":124,"var":"cancellord_btn","skin":"comp/button.png","labelSize":30,"labelFont":"SimHei","label":"不抢","height":51},"compId":16},{"type":"Button","props":{"y":36,"x":174,"width":124,"var":"wantlord_btn","skin":"comp/button.png","labelSize":30,"labelFont":"SimHei","label":"抢地主","height":51},"compId":20},{"type":"Button","props":{"y":37,"x":1,"width":124,"var":"wantdouble_btn","skin":"comp/button.png","labelSize":30,"labelFont":"SimHei","label":"加倍","height":51},"compId":21},{"type":"Button","props":{"y":37,"x":174,"width":124,"var":"canceldouble_btn","skin":"comp/button.png","labelSize":30,"labelFont":"SimHei","label":"不加倍","height":51},"compId":22},{"type":"Button","props":{"y":36,"width":124,"var":"showCard_btn","skin":"comp/button.png","labelSize":30,"labelFont":"SimHei","label":"出牌","height":51},"compId":23},{"type":"Button","props":{"y":36,"x":174,"width":124,"var":"pass_btn","skin":"comp/button.png","labelSize":30,"labelFont":"SimHei","label":"PASS","height":51},"compId":24},{"type":"Button","props":{"y":36.5,"x":87,"width":124,"var":"ready_btn","skin":"comp/button.png","labelSize":30,"labelFont":"SimHei","label":"准备","height":51},"compId":53}]},{"type":"Box","props":{"y":23,"x":506,"var":"lordcard_box"},"compId":26,"child":[{"type":"Image","props":{"width":284,"skin":"comp/blank.png","height":103},"compId":14},{"type":"Image","props":{"y":4,"x":23,"skin":"poker/CardBack.png","name":"lordcard_1"},"compId":7},{"type":"Image","props":{"y":4,"x":110,"skin":"poker/CardBack.png","name":"lordcard_2"},"compId":12},{"type":"Image","props":{"y":4,"x":196,"skin":"poker/CardBack.png","name":"lordcard_3"},"compId":13}]}],"loadList":["sence/BG2.png","comp/button.png","comp/blank.png","poker/CardBack.png"],"loadList3D":[]};
+		public static var uiView:Object =/*[STATIC SAFE]*/{"type":"Scene","props":{"width":1282,"height":709},"compId":2,"child":[{"type":"Sprite","props":{"y":0,"x":0,"width":1282,"texture":"sence/BG2.png","height":709},"compId":3},{"type":"Box","props":{"y":23,"x":506,"var":"lordcard_box"},"compId":26,"child":[{"type":"Image","props":{"width":284,"skin":"comp/blank.png","height":103},"compId":14},{"type":"Image","props":{"y":4,"x":23,"skin":"poker/CardBack.png","name":"lordcard_1"},"compId":7},{"type":"Image","props":{"y":4,"x":110,"skin":"poker/CardBack.png","name":"lordcard_2"},"compId":12},{"type":"Image","props":{"y":4,"x":196,"skin":"poker/CardBack.png","name":"lordcard_3"},"compId":13}]}],"loadList":["sence/BG2.png","comp/blank.png","poker/CardBack.png"],"loadList3D":[]};
 		override protected function createChildren():void {
 			super.createChildren();
 			createView(uiView);

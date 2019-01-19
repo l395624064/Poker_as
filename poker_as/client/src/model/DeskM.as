@@ -1,6 +1,10 @@
 package client.src.model {
 import client.src.constant.PokerConst;
+import client.src.elem.card.Card;
+import client.src.elem.role.Player;
 import client.src.elem.role.Role;
+
+import laya.utils.Pool;
 
 public class DeskM {
     private static var _instance:DeskM;
@@ -31,12 +35,17 @@ public class DeskM {
         _deskPokerTwoNum=value;
     }
 
+    public var deskPokerleng:Number=0;//牌组长度
     private var _deskPokerList:Array=[];//当前桌牌
     public function get deskPokerList():Array{
         return _deskPokerList;
     }
     public function set deskPokerList(value:Array):void{
+        if(_deskPokerList.length>0){
+            clearDeskCard();
+        }
         _deskPokerList=value;
+        deskPokerleng=value.length;
     }
 
     private var _deskPokerType:String;//当前桌牌类型
@@ -97,32 +106,48 @@ public class DeskM {
         _maxSeatId=value;
     }
 
-    private var _playerTurn:Number;//轮位
+    private var _playerTurn:Number;//当前座位的回合
     public function get playerTurn():Number{
         return _playerTurn;
     }
     public function set playerTurn(value:Number):void{
+        if(value<=0||value>3) throw new Error("DeskM playerTurn set warn!");
         _playerTurn=value;
+    }
+    public function initPlayerTurn():void{
+        _playerTurn=1;
+    }
+    public function updatePlayerTurn():void
+    {
+        _playerTurn++;
         if(_playerTurn>3) _playerTurn=1;
     }
 
-    private var _wantLordSeat:Number;//抢地主座位
-    public function get wantLordSeat():Number{
-        return _wantLordSeat;
+
+    private var _wantLordSeatArr:Array=[];//抢地主座位
+    public function get wantLordSeatArr():Array{
+        return _wantLordSeatArr;
     }
-    public function set wantLordSeat(value:Number):void{
-        _wantLordSeat=value;
+    public function set wantLordSeatArr(value:Array):void{
+        _wantLordSeatArr=value;
     }
 
-    private var _robLordIndex:Number=0;//抢地主计数
-    public function get robLordIndex():Number{
-        return _robLordIndex;
+    private var _completeNum:Number=0;//已完成的玩家计数
+    public function get completeNum():Number{
+        return _completeNum;
     }
-    public function set robLordIndex(value:Number):void{
-        _robLordIndex=value;
+    public function set completeNum(value:Number):void{
+        _completeNum=value;
     }
 
 
+    private var _scoreNum:Number=0;//分数倍数
+    public function get scoreNum():Number{
+        return _scoreNum;
+    }
+    public function set scoreNum(value:Number):void{
+        _scoreNum=value;
+    }
 
     private var _landlordCards:Array=[];//地主三张
     public function get landlordCards():Array{
@@ -140,7 +165,55 @@ public class DeskM {
         _landlord=role;
     }
 
+    private var _playerlist:Array=[];//当前玩家数组
+    public function get playerList():Array{
+        return _playerlist;
+    }
+    public function set playerList(arr:Array):void{
+        _playerlist=arr;
+    }
+    public function get maxPlayer():*{
+        return _playerlist[maxSeatId-1];//最大出牌者
+    }
 
+    private var _player:Player;//自己
+    public function get Player():Player{
+        return _player;
+    }
+    public function set Player(role:Player):void{
+        _player=role;
+    }
+
+
+
+
+
+    /*
+    * 初始化牌桌信息
+    * */
+    public function initRound(maxSeat:Number):void
+    {
+        deskPokerList=[];//当前桌面牌
+        deskHeadValue=PokerConst.CARD_NONE;//当前桌面牌值
+        deskPokerType=PokerConst.TYPE_NONE;//当前桌面类型
+        maxSeatId=maxSeat;//最大出牌者座位号
+        playerTurn=maxSeat;//当前回合的桌位
+        gameTurn++;//当前轮数
+    }
+
+    /*
+    * 清理桌面牌
+    * */
+    private function clearDeskCard():void
+    {
+        var card:Card;
+        for(var i:int=_deskPokerList.length-1;i>=0;i--){
+            card=_deskPokerList[i];
+            Pool.recover(card.sign,card);
+            card.removeSelf();
+        }
+        _deskPokerList=[];
+    }
 
 
     public function DeskM() {
